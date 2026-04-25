@@ -87,7 +87,7 @@ if (lang === 'tr') {
   </div>
 
   <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu" class="fixed inset-x-0 top-20 bottom-0 bg-white/95 backdrop-blur-lg z-40 hidden md:hidden overflow-y-auto animate-fade-in">
+  <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-lg z-[100] hidden md:hidden overflow-y-auto animate-fade-in pt-20">
     <div class="container mx-auto px-4 py-8">
       <ul class="flex flex-col gap-6">
         {navItems.map(item => (
@@ -119,15 +119,19 @@ if (lang === 'tr') {
 
   if (toggleBtn && menu && menuIcon && closeIcon) {
     toggleBtn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-      menuIcon.classList.toggle('hidden');
-      closeIcon.classList.toggle('hidden');
-      
-      // Prevent body scroll when menu is open
-      if (menu.classList.contains('hidden')) {
-        document.body.style.overflow = '';
-      } else {
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+      } else {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
       }
     });
 
