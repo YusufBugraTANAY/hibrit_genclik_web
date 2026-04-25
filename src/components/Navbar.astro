@@ -85,87 +85,93 @@ if (lang === 'tr') {
       </div>
     </div>
   </div>
-
-  <!-- Mobile Menu Drawer -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] hidden md:hidden opacity-0 transition-opacity duration-300"></div>
-  
-  <div id="mobile-menu-drawer" class="fixed inset-y-0 right-0 w-[80%] max-w-sm bg-white z-[110] hidden md:hidden transform translate-x-full transition-transform duration-300 shadow-2xl overflow-y-auto">
-    <div class="flex flex-col h-full">
-      <!-- Drawer Header -->
-      <div class="flex items-center justify-between p-6 border-b border-slate-100">
-        <span class="font-bold text-slate-deep">Menü</span>
-        <button id="mobile-menu-close" class="p-2 text-slate-text hover:text-primary transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-        </button>
-      </div>
-
-      <!-- Drawer Content -->
-      <div class="flex-grow p-6">
-        <ul class="flex flex-col gap-4">
-          {navItems.map(item => (
-            <li>
-              <a 
-                href={item.href} 
-                class="text-lg font-semibold text-slate-deep hover:text-primary transition-colors block py-3 border-b border-slate-50"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Drawer Footer -->
-      <div class="p-6 border-t border-slate-100 bg-slate-50">
-        <a href={translatePath('/gonulluluk/')} class="block w-full bg-primary text-white text-center py-4 rounded-xl font-bold shadow-lg transform active:scale-95 transition-all">
-          {t('nav.volunteer')}
-        </a>
-      </div>
-    </div>
-  </div>
 </header>
 
+<!-- Mobile Menu Drawer (Outside Header to bypass stacking context) -->
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[9998] hidden opacity-0 transition-opacity duration-300"></div>
+
+<div id="mobile-menu-drawer" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white z-[9999] hidden transform translate-x-full transition-transform duration-300 shadow-2xl overflow-y-auto">
+  <div class="flex flex-col h-full">
+    <!-- Drawer Header -->
+    <div class="flex items-center justify-between p-6 border-b border-slate-100 bg-white sticky top-0 z-10">
+      <div class="flex items-center gap-3">
+        <img src="/images/logo.jpg" alt="Logo" class="h-8 w-auto rounded" />
+        <span class="font-bold text-slate-deep">Hibrit Gençlik</span>
+      </div>
+      <button id="mobile-menu-close" class="p-2 text-slate-text hover:text-primary transition-colors bg-slate-50 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Drawer Content -->
+    <div class="flex-grow p-6">
+      <ul class="flex flex-col gap-2">
+        {navItems.map(item => (
+          <li>
+            <a 
+              href={item.href} 
+              class="text-lg font-semibold text-slate-deep hover:text-primary hover:bg-slate-50 transition-all block px-4 py-4 rounded-xl border-b border-slate-50"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-6 border-t border-slate-100 bg-slate-50 mt-auto">
+      <a href={translatePath('/gonulluluk/')} class="block w-full bg-primary text-white text-center py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all">
+        {t('nav.volunteer')}
+      </a>
+      <p class="text-center text-xs text-slate-text mt-4 opacity-60">© 2026 Hibrit Gençlik Derneği</p>
+    </div>
+  </div>
+</div>
+
 <script>
-  const toggleBtn = document.getElementById('mobile-menu-toggle');
-  const closeBtn = document.getElementById('mobile-menu-close');
-  const overlay = document.getElementById('mobile-menu-overlay');
-  const drawer = document.getElementById('mobile-menu-drawer');
+  // Script logic remains same but ensuring it targets the new elements
+  const setupMenu = () => {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const closeBtn = document.getElementById('mobile-menu-close');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const drawer = document.getElementById('mobile-menu-drawer');
 
-  function openMenu() {
-    if (!overlay || !drawer) return;
-    overlay.classList.remove('hidden');
-    drawer.classList.remove('hidden');
-    setTimeout(() => {
-      overlay.classList.add('opacity-100');
-      drawer.classList.remove('translate-x-full');
-    }, 10);
-    document.body.style.overflow = 'hidden';
-  }
+    if (!toggleBtn || !closeBtn || !overlay || !drawer) return;
 
-  function closeMenu() {
-    if (!overlay || !drawer) return;
-    overlay.classList.remove('opacity-100');
-    drawer.classList.add('translate-x-full');
-    setTimeout(() => {
-      overlay.classList.add('hidden');
-      drawer.classList.add('hidden');
-    }, 300);
-    document.body.style.overflow = '';
-  }
+    function openMenu() {
+      overlay.classList.remove('hidden');
+      drawer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        overlay.classList.add('opacity-100');
+        drawer.classList.remove('translate-x-full');
+      }, 10);
+    }
 
-  if (toggleBtn && closeBtn && overlay && drawer) {
+    function closeMenu() {
+      overlay.classList.remove('opacity-100');
+      drawer.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        drawer.classList.add('hidden');
+      }, 300);
+    }
+
     toggleBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     overlay.addEventListener('click', closeMenu);
 
-    // Close menu on link click
     const menuLinks = drawer.querySelectorAll('a');
     menuLinks.forEach(link => {
       link.addEventListener('click', closeMenu);
     });
-  }
-</script>
+  };
 
-<style>
-  /* Optional: Smooth fade-in and slide-in already handled by Tailwind classes */
-</style>
+  // Run on initial load
+  setupMenu();
+  
+  // Also run on Astro page changes if needed
+  document.addEventListener('astro:page-load', setupMenu);
+</script>
