@@ -1,0 +1,93 @@
+---
+import association from '../data/association.json';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-white border-t border-slate-200 pt-16 pb-8 relative overflow-hidden">
+  <!-- Background Elements (Subtle) -->
+  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      
+      <!-- Brand & About -->
+      <div>
+        <a href={translatePath('/')} class="flex items-center gap-3 mb-6 group">
+          <img 
+            src="/images/logo.jpg" 
+            alt="Hibrit Gençlik Logo" 
+            class="h-10 w-auto group-hover:scale-105 transition-transform duration-300 rounded-md"
+            onerror="this.src='/favicon.svg'; this.className='w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-mint p-1';"
+          />
+          <span class="font-bold text-xl text-slate-deep group-hover:text-primary transition-colors">{association.name[lang]}</span>
+        </a>
+        <p class="text-slate-text text-sm leading-relaxed mb-6">
+          {association.vision[lang]}
+        </p>
+        <div class="flex gap-4">
+          <!-- Social Icons Placeholder -->
+          <a href="https://www.instagram.com/hibritgenclik/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-text hover:bg-primary hover:text-white transition-all">
+            <span class="sr-only">Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-text hover:bg-primary hover:text-white transition-all">
+            <span class="sr-only">LinkedIn</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h3 class="text-slate-deep font-semibold text-lg mb-6 relative inline-block">
+          {t('footer.quickLinks')}
+          <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-primary"></span>
+        </h3>
+        <ul class="space-y-3">
+          <li><a href={translatePath('/kurumsal/')} class="text-slate-text hover:text-primary transition-colors text-sm">{t('nav.about')}</a></li>
+          <li><a href={translatePath('/projeler/')} class="text-slate-text hover:text-primary transition-colors text-sm">{t('nav.projects')}</a></li>
+          <li><a href={translatePath('/faaliyetler/')} class="text-slate-text hover:text-primary transition-colors text-sm">{t('nav.activities')}</a></li>
+          <li><a href={translatePath('/gonulluluk/')} class="text-slate-text hover:text-primary transition-colors text-sm">{t('nav.volunteer')}</a></li>
+          <li><a href={translatePath('/iletisim/')} class="text-slate-text hover:text-primary transition-colors text-sm">{t('nav.contact')}</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="text-slate-deep font-semibold text-lg mb-6 relative inline-block">
+          {t('footer.contact')}
+          <span class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-primary"></span>
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3 text-sm text-slate-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>{association.address}</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <a href={`mailto:${association.contact.email}`} class="hover:text-primary transition-colors">{association.contact.email}</a>
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary shrink-0"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+            <a href={`tel:${association.contact.phone}`} class="hover:text-primary transition-colors">{association.contact.phone}</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar with OID and National ID -->
+    <div class="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+      <p>&copy; {year} {association.name[lang]}. {t('footer.rights')}</p>
+      <div class="flex items-center gap-4">
+        <span class="px-3 py-1 bg-slate-50 rounded-full border border-slate-200">OID: <strong class="text-slate-deep">{association.identifiers.oid}</strong></span>
+        <span class="px-3 py-1 bg-slate-50 rounded-full border border-slate-200">National ID: <strong class="text-slate-deep">{association.identifiers.nationalId}</strong></span>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,229 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import projects from '../../../data/projects.json';
+import fs from 'node:fs';
+import path from 'node:path';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+// Helper to generate image/video array by reading the filesystem
+const getMediaFiles = (folder) => {
+  if (!folder) return [];
+  try {
+    const dirPath = path.join(process.cwd(), 'public', folder);
+    if (!fs.existsSync(dirPath)) return [];
+    
+    const files = fs.readdirSync(dirPath);
+    return files
+      .filter(file => /\.(jpg|jpeg|png|mp4|mov)$/i.test(file))
+      .map(file => ({
+        src: `${folder}/${file}`,
+        type: /\.(mp4|mov)$/i.test(file) ? 'video' : 'image'
+      }));
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+};
+
+let allMedia = [];
+if (project.sessions && project.sessions.length > 0) {
+  allMedia = project.sessions.flatMap(session => 
+    getMediaFiles(session.imageFolder).map(media => ({ ...media, sessionId: session.id }))
+  );
+} else if (project.imageFolder) {
+  allMedia = getMediaFiles(project.imageFolder).map(media => ({ ...media, sessionId: 'default' }));
+}
+
+const title = project.title[lang] || project.title.tr;
+const summary = project.summary[lang] || project.summary.tr;
+const description = project.description ? (project.description[lang] || project.description.tr) : null;
+const location = project.location[lang] || project.location.tr;
+---
+
+<Layout title={title} description={summary}>
+  <!-- Project Header -->
+  <section class="pt-32 pb-16 relative border-b border-slate-200 bg-white">
+    <div class="absolute inset-0 bg-primary/5"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <a href={translatePath('/projeler/')} class="inline-flex items-center text-sm text-primary hover:text-primary-dark mb-8 transition-colors font-semibold">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m15 18-6-6 6-6"/></svg>
+        {t('project.backToAll')}
+      </a>
+      
+      <div class="flex flex-wrap items-center gap-4 mb-6">
+        <span class="px-3 py-1 bg-mint/20 border border-mint/30 rounded-full text-primary-dark text-sm font-semibold">
+          {project.category}
+        </span>
+        <span class="text-slate-500 text-sm flex items-center font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          {new Date(project.date).toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', { month: 'long', year: 'numeric' })}
+          {project.endDate && ` - ${new Date(project.endDate).toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', { month: 'long', year: 'numeric' })}`}
+        </span>
+        <span class="text-slate-500 text-sm flex items-center font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          {location}
+        </span>
+        <span class="text-slate-500 text-sm flex items-center font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          {project.participants} {t('project.participants')}
+        </span>
+      </div>
+      
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-deep mb-6 leading-tight">
+        {title}
+      </h1>
+      
+      <p class="text-xl text-slate-text max-w-3xl leading-relaxed">
+        {summary}
+      </p>
+
+      {description && (
+        <div class="mt-8 text-slate-600 max-w-4xl leading-relaxed prose prose-slate">
+          <p>{description}</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Sessions Overview (If multi-session project) -->
+  {project.sessions && project.sessions.length > 0 && (
+    <section class="py-16 bg-slate-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-deep mb-10 border-l-4 border-primary pl-4">
+          {t('project.sessions')}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+          {project.sessions.map((session, index) => (
+            <div class="glass-card p-6 session-filter-btn cursor-pointer transition-all hover:-translate-y-1 bg-white" data-filter={session.id}>
+              <div class="w-12 h-12 rounded-full bg-mint/30 flex items-center justify-center text-primary-dark font-bold text-xl mb-4">
+                {index + 1}
+              </div>
+              <h3 class="text-xl font-bold text-slate-deep mb-2">{session.title[lang] || session.title.tr}</h3>
+              <p class="text-xs text-primary mb-4 font-semibold">
+                {new Date(session.date).toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' })} - 
+                {new Date(session.endDate).toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </p>
+              <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                {session.description[lang] || session.description.tr}
+              </p>
+              <div class="text-xs text-slate-500 flex items-center font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                {session.participants} {t('project.participants')}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Masonry Gallery -->
+  {allMedia.length > 0 && (
+    <section class="py-16 bg-white border-t border-slate-200">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-4">
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-deep border-l-4 border-primary pl-4">
+            {t('project.gallery')}
+          </h2>
+          {project.sessions && project.sessions.length > 0 && (
+            <button id="reset-gallery" class="px-5 py-2 bg-slate-100 text-slate-600 hover:bg-primary hover:text-white transition-colors rounded-full text-sm font-semibold border border-slate-200">
+              {t('project.showAll')}
+            </button>
+          )}
+        </div>
+        
+        <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+          {allMedia.map((media, index) => (
+            <div class="break-inside-avoid relative group rounded-xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200 gallery-item transition-all duration-500" data-session={media.sessionId}>
+              {media.type === 'image' ? (
+                <>
+                  <div class="absolute inset-0 flex items-center justify-center text-slate-400 -z-10">
+                    <svg class="animate-spin w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                  </div>
+                  <img 
+                    src={media.src} 
+                    alt={`${title} - Media ${index + 1}`} 
+                    class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                  <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
+                    <span class="text-white font-medium bg-white/20 px-4 py-2 rounded-full border border-white/30 text-sm">
+                      {t('project.clickToEnlarge')}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <video 
+                  src={media.src} 
+                  controls
+                  preload="metadata"
+                  class="w-full h-auto object-cover rounded-xl"
+                ></video>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+</Layout>
+
+<script>
+  // Client-side filtering logic for the Masonry Gallery
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.session-filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const resetBtn = document.getElementById('reset-gallery');
+
+    function filterGallery(sessionId) {
+      galleryItems.forEach(item => {
+        if (sessionId === 'all' || item.dataset.session === sessionId) {
+          item.style.display = 'block';
+          item.style.opacity = '0';
+          setTimeout(() => item.style.opacity = '1', 50);
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      filterBtns.forEach(btn => {
+        if (btn.dataset.filter === sessionId) {
+          btn.classList.add('ring-2', 'ring-primary', 'bg-mint/10');
+        } else {
+          btn.classList.remove('ring-2', 'ring-primary', 'bg-mint/10');
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterGallery(btn.dataset.filter);
+        
+        const gallerySection = document.getElementById('reset-gallery');
+        if(gallerySection) {
+          gallerySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        filterGallery('all');
+      });
+    }
+  });
+</script>

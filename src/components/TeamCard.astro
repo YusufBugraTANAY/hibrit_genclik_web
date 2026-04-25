@@ -1,0 +1,50 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+interface Props {
+  member: {
+    id: string;
+    name: string;
+    role: { tr: string; en: string } | string;
+    description: { tr: string; en: string } | string;
+    image: string;
+  }
+}
+
+const { member } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const role = typeof member.role === 'object' ? member.role[lang] : member.role;
+const description = typeof member.description === 'object' ? member.description[lang] : member.description;
+---
+
+<div class="glass-card overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+  <div class="aspect-[4/5] relative overflow-hidden bg-slate-100">
+    <!-- Fallback if image doesn't exist (using initials) -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 bg-slate-200">
+       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    
+    <!-- Actual Image -->
+    {member.image && (
+      <img 
+        src={member.image} 
+        alt={member.name} 
+        class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-500"
+        onerror="this.style.display='none'"
+      />
+    )}
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent opacity-90 z-10"></div>
+  </div>
+  
+  <div class="p-6 relative z-20 -mt-20">
+    <div class="inline-block px-3 py-1 bg-mint/20 border border-mint/30 rounded-full text-primary-dark text-xs font-semibold mb-3">
+      {role}
+    </div>
+    <h3 class="text-xl font-bold text-slate-deep mb-2">{member.name}</h3>
+    <p class="text-sm text-slate-text leading-relaxed">
+      {description}
+    </p>
+  </div>
+</div>

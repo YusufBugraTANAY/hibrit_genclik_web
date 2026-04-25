@@ -1,0 +1,44 @@
+---
+import association from '../data/association.json';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section class="relative min-h-[90vh] flex items-center justify-center pt-20 pb-32 overflow-hidden">
+  <!-- Background Image with Maximum Visibility -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/images/hero-bg.png" 
+      alt="Youth Collaboration" 
+      class="w-full h-full object-cover blur-[1px] scale-105 opacity-55"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/20 to-white/90"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10 text-center">
+    <div class="inline-block mb-8 px-5 py-2 rounded-full bg-white border border-slate-200 shadow-sm animate-fade-in">
+      <span class="text-sm font-semibold text-primary tracking-wide uppercase">{t('hero.badge')}</span>
+    </div>
+    
+    <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight text-slate-deep leading-tight">
+      {t('hero.title.1')} <br />
+      <span class="text-gradient">{t('hero.title.2')}</span>
+    </h1>
+    
+    <p class="text-lg md:text-xl text-slate-text max-w-2xl mx-auto mb-12 leading-relaxed">
+      {association.vision[lang]}
+    </p>
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href={translatePath('/projeler/')} class="w-full sm:w-auto px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-md">
+        {t('hero.cta.projects')}
+      </a>
+      <a href={translatePath('/kurumsal/')} class="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-deep font-semibold rounded-full hover:bg-slate-50 transition-all shadow-sm">
+        {t('hero.cta.about')}
+      </a>
+    </div>
+  </div>
+</section>

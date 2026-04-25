@@ -1,0 +1,89 @@
+[
+  {
+    "id": "ka154-afetlere-karsi",
+    "slug": "ka154-afetlere-karsi",
+    "title": {
+      "tr": "KA154 Gençlerin Öncülüğünde Afetlere Karşı Hep Birlikte",
+      "en": "KA154 Youth Led Together Against Disasters"
+    },
+    "summary": {
+      "tr": "Gençlerin afet yönetimi ve toplumsal dayanışma konularında farkındalıklarını artırmayı hedefleyen 3 oturumlu ulusal projemiz.",
+      "en": "Our 3-session national project aiming to raise youth awareness on disaster management and social solidarity."
+    },
+    "category": "Erasmus+ KA154",
+    "date": "2024-07-04",
+    "endDate": "2024-12-03",
+    "location": {
+      "tr": "Şanlıurfa, Muğla, İstanbul",
+      "en": "Sanliurfa, Mugla, Istanbul"
+    },
+    "participants": 120,
+    "image": "/images/projects/ka154-afetlere-karsi/sanliurfa/1.jpg",
+    "sessions": [
+      {
+        "id": "sanliurfa",
+        "title": { "tr": "Şanlıurfa Oturumu", "en": "Sanliurfa Session" },
+        "date": "2024-07-04",
+        "endDate": "2024-07-07",
+        "participants": 35,
+        "description": {
+          "tr": "Projemizin ilk ulusal toplantısı. Gençlerin afet yönetimi ve toplumsal dayanışma konularında farkındalıklarını artırmak amacıyla gerçekleştirildi.",
+          "en": "The first national meeting of our project. It was held to raise awareness among young people about disaster management and social solidarity."
+        },
+        "imageFolder": "/images/projects/ka154-afetlere-karsi/sanliurfa",
+        "imageCount": 10
+      },
+      {
+        "id": "mugla",
+        "title": { "tr": "Muğla Oturumu", "en": "Mugla Session" },
+        "date": "2024-09-15",
+        "endDate": "2024-09-18",
+        "participants": 35,
+        "description": {
+          "tr": "Projemizin ikinci ulusal toplantısı. Gençlerin siyasi süreçlere katılımını artırmak ve politika yapıcılarla etkileşimlerini sağlamak amacıyla düzenlendi.",
+          "en": "The second national meeting. Organized to increase youth participation in political processes and ensure interaction with policymakers."
+        },
+        "imageFolder": "/images/projects/ka154-afetlere-karsi/mugla",
+        "imageCount": 10
+      },
+      {
+        "id": "istanbul",
+        "title": { "tr": "İstanbul Zirvesi", "en": "Istanbul Summit" },
+        "date": "2024-11-30",
+        "endDate": "2024-12-03",
+        "participants": 50,
+        "description": {
+          "tr": "Projemizin kapanış zirvesi. Afetlerden etkilenen gençlerin ihtiyaçlarını belirleyerek politika yapıcılara çözüm önerileri sunmayı hedefleyen zirve faaliyetimiz.",
+          "en": "The closing summit. A summit activity aiming to determine the needs of youth affected by disasters and present solutions to policymakers."
+        },
+        "imageFolder": "/images/projects/ka154-afetlere-karsi/istanbul",
+        "imageCount": 10
+      }
+    ]
+  },
+  {
+    "id": "ka152-social-field",
+    "slug": "ka152-social-field",
+    "title": {
+      "tr": "KA152 Sosyal Alanda Birlikte Yapalım (Let's Do it in the Social Field)",
+      "en": "KA152 Let's Do it in the Social Field"
+    },
+    "summary": {
+      "tr": "COVID-19 sonrası gençlerin sosyal hayata katılımını artırmayı, sosyal kaygılarla başa çıkmalarını sağlamayı ve özgüvenlerini geliştirmeyi hedefleyen projemiz.",
+      "en": "Although it seems like we are going into a post-covid period, getting back to real-life relationships can be intimidating. This project seeks to promote inclusion and involvement of young people in social life."
+    },
+    "description": {
+      "tr": "Post-covid dönemine giriyor gibi görünsek de gerçek hayattaki ilişkilere geri dönmek korkutucu olabiliyor. Sosyal medya platformları gençlerin arkadaşlık kurmasına yardımcı olabilir ancak çevrimiçi etkileşimler hiçbir zaman yüz yüze etkileşimlerle aynı değere sahip olmayacaktır. Ana hedeflerimiz: Gençleri sosyal garipliklerle başa çıkmaları için güçlendirmek, bozulan sosyal becerilerini geliştirmelerine yardımcı olmak, anti-sosyal durumdan çıkıp sosyal uyumu teşvik etmek, sosyal kaygı ile mücadele etmek ve özgüvenlerini artırmaktır. Ayrıca kültürlerarası farkındalığı yükseltmeyi ve Erasmus+ fırsatlarını yaygınlaştırmayı amaçlıyoruz.",
+      "en": "Although it seems like we are going into a post-covid period, yet getting back to real-life relationships can be intimidating. Social media channels can definitely help youngsters to build friendships, interact with others, or even become globally more aware, nevertheless, online exchanges will never be of the same value as in-person interactions. It is why through this project we seek to promote more inclusion and involvement of young people in social life. The main objectives include: empowering youth to cope with social awkwardness, fostering counter-narratives for deteriorated social skills, encouraging social adjustment, combating social anxiety, and enhancing self-esteem. Furthermore, raising intercultural awareness as participants deal with different cultures."
+    },
+    "category": "Erasmus+ KA152",
+    "date": "2024-01-01",
+    "location": {
+      "tr": "Belirtilmedi",
+      "en": "Not Specified"
+    },
+    "participants": 40,
+    "image": "/images/projects/ka152-social-field/1.jpg",
+    "imageFolder": "/images/projects/ka152-social-field"
+  }
+]

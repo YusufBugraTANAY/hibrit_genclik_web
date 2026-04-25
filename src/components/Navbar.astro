@@ -1,0 +1,87 @@
+---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const navItems = [
+  { label: t('nav.home'), href: translatePath('/') },
+  { label: t('nav.about'), href: translatePath('/kurumsal/') },
+  { label: t('nav.activities'), href: translatePath('/faaliyetler/') },
+  { label: t('nav.projects'), href: translatePath('/projeler/') },
+  { label: t('nav.volunteer'), href: translatePath('/gonulluluk/') },
+  { label: t('nav.contact'), href: translatePath('/iletisim/') },
+];
+
+const currentPath = Astro.url.pathname;
+const hasTrailingSlash = currentPath.endsWith('/');
+const altLang = lang === 'tr' ? 'en' : 'tr';
+
+let altLangUrl;
+if (lang === 'tr') {
+  // From TR to EN
+  const path = currentPath === '/' ? '' : currentPath;
+  altLangUrl = `/en${path}${path.endsWith('/') || path === '' ? '' : '/'}`;
+} else {
+  // From EN to TR
+  altLangUrl = currentPath.replace(/^\/en/, '') || '/';
+  if (!altLangUrl.endsWith('/')) altLangUrl += '/';
+}
+---
+
+<header class="sticky top-0 z-50 glass">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href={translatePath('/')} class="flex items-center gap-3 group">
+        <img 
+          src="/images/logo.jpg" 
+          alt="Hibrit Gençlik Logo" 
+          class="h-12 w-auto group-hover:scale-105 transition-transform duration-300 rounded-lg"
+          onerror="this.src='/favicon.svg'; this.className='w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-mint p-2';"
+        />
+        <div class="flex flex-col">
+          <span class="font-bold text-lg leading-tight tracking-tight text-slate-deep group-hover:text-primary transition-colors">Hibrit Gençlik</span>
+          <span class="text-xs text-slate-text uppercase tracking-widest font-medium">Kulübü Derneği</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8">
+        <ul class="flex items-center gap-6">
+          {navItems.map(item => (
+            <li>
+              <a 
+                href={item.href} 
+                class="text-sm font-medium text-slate-text hover:text-primary transition-colors relative after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all after:duration-300"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        
+        <div class="flex items-center gap-4 border-l border-slate-200 pl-4">
+          <a href={altLangUrl} class="text-xs font-bold text-slate-text hover:text-primary transition-colors flex items-center bg-slate-100 hover:bg-slate-200 rounded px-2 py-1">
+            {altLang.toUpperCase()}
+          </a>
+          
+          <a href={translatePath('/gonulluluk/')} class="bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-full font-semibold text-sm transition-all transform hover:scale-105 shadow-md">
+            {t('nav.volunteer')}
+          </a>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu Button (simplified for prototype) -->
+      <div class="flex items-center gap-4 md:hidden">
+        <a href={altLangUrl} class="text-xs font-bold text-slate-text hover:text-primary transition-colors bg-slate-100 rounded px-2 py-1">
+          {altLang.toUpperCase()}
+        </a>
+        <button class="text-slate-text hover:text-primary transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

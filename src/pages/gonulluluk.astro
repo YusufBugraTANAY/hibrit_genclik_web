@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import association from '../data/association.json';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={t('nav.volunteer')}>
+  <section class="pt-32 pb-16 bg-primary/5 border-b border-primary/10">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-deep mb-6 leading-tight">
+          {t('volunteer.title')}
+        </h1>
+        <p class="text-xl text-slate-text leading-relaxed">
+          {t('volunteer.subtitle')}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="glass-card p-8 md:p-12 bg-white border-slate-200">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-deep mb-4">Gönüllü Başvuru Formu</h2>
+            <p class="text-slate-text">Bilgilerini doldur, ekibimiz seninle en kısa sürede iletişime geçsin.</p>
+          </div>
+
+          <form action={`https://formspree.io/f/mleydlpw`} method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <input type="hidden" name="_subject" value="Yeni Gönüllü Başvurusu!" />
+            
+            <div class="space-y-6 md:col-span-1">
+              <div>
+                <label for="v-name" class="block text-sm font-semibold text-slate-700 mb-2">{t('contact.form.name')}</label>
+                <input type="text" id="v-name" name="name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" />
+              </div>
+              <div>
+                <label for="v-email" class="block text-sm font-semibold text-slate-700 mb-2">{t('contact.form.email')}</label>
+                <input type="email" id="v-email" name="email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" />
+              </div>
+              <div>
+                <label for="v-phone" class="block text-sm font-semibold text-slate-700 mb-2">{t('contact.info.phone')}</label>
+                <input type="tel" id="v-phone" name="phone" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" />
+              </div>
+            </div>
+
+            <div class="space-y-6 md:col-span-1">
+              <div>
+                <label for="v-reason" class="block text-sm font-semibold text-slate-700 mb-2">{t('volunteer.form.reason')}</label>
+                <textarea id="v-reason" name="reason" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none resize-none"></textarea>
+              </div>
+              <div>
+                <label for="v-skills" class="block text-sm font-semibold text-slate-700 mb-2">{t('volunteer.form.skills')}</label>
+                <textarea id="v-skills" name="skills" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none resize-none"></textarea>
+              </div>
+            </div>
+
+            <div class="md:col-span-2 pt-6">
+              <button type="submit" class="w-full py-5 bg-primary hover:bg-primary-dark text-white font-bold rounded-2xl transition-all transform hover:scale-[1.01] shadow-lg text-lg">
+                {t('volunteer.form.submit')}
+              </button>
+              <p class="text-center text-xs text-slate-400 mt-6 italic">
+                Başvurunuzu gönderdiğinizde {association.contact.email} adresine otomatik bir bilgilendirme iletilecektir.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
