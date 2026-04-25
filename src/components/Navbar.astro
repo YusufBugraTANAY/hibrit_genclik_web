@@ -73,15 +73,83 @@ if (lang === 'tr') {
         </div>
       </nav>
 
-      <!-- Mobile Menu Button (simplified for prototype) -->
+      <!-- Mobile Menu Button -->
       <div class="flex items-center gap-4 md:hidden">
         <a href={altLangUrl} class="text-xs font-bold text-slate-text hover:text-primary transition-colors bg-slate-100 rounded px-2 py-1">
           {altLang.toUpperCase()}
         </a>
-        <button class="text-slate-text hover:text-primary transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <button id="mobile-menu-toggle" class="text-slate-text hover:text-primary transition-colors focus:outline-none">
+          <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg id="close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
         </button>
       </div>
     </div>
   </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-x-0 top-20 bottom-0 bg-white/95 backdrop-blur-lg z-40 hidden md:hidden overflow-y-auto animate-fade-in">
+    <div class="container mx-auto px-4 py-8">
+      <ul class="flex flex-col gap-6">
+        {navItems.map(item => (
+          <li>
+            <a 
+              href={item.href} 
+              class="text-xl font-bold text-slate-deep hover:text-primary transition-colors block border-b border-slate-100 pb-2"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      
+      <div class="mt-12">
+        <a href={translatePath('/gonulluluk/')} class="block w-full bg-primary text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg">
+          {t('nav.volunteer')}
+        </a>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  if (toggleBtn && menu && menuIcon && closeIcon) {
+    toggleBtn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+      
+      // Prevent body scroll when menu is open
+      if (menu.classList.contains('hidden')) {
+        document.body.style.overflow = '';
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Close menu on link click
+    const menuLinks = menu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
