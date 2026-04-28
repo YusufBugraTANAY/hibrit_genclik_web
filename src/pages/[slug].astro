@@ -26,8 +26,8 @@ const getMediaFiles = (folder: string) => {
     
     const files = fs.readdirSync(dirPath);
     return files
-      .filter(file => /\.(jpg|jpeg|png|mp4|mov)$/i.test(file))
-      .map(file => ({
+      .filter((file: string) => /\.(jpg|jpeg|png|mp4|mov)$/i.test(file))
+      .map((file: string) => ({
         src: `${folder}/${file}`,
         type: /\.(mp4|mov)$/i.test(file) ? 'video' : 'image'
       }));
@@ -40,10 +40,10 @@ const getMediaFiles = (folder: string) => {
 let allMedia: any[] = [];
 if (project.sessions && project.sessions.length > 0) {
   allMedia = project.sessions.flatMap((session: any) => 
-    getMediaFiles(session.imageFolder).map(media => ({ ...media, sessionId: session.id }))
+    getMediaFiles(session.imageFolder).map((media: any) => ({ ...media, sessionId: session.id }))
   );
 } else if (project.imageFolder) {
-  allMedia = getMediaFiles(project.imageFolder).map(media => ({ ...media, sessionId: 'default' }));
+  allMedia = getMediaFiles(project.imageFolder).map((media: any) => ({ ...media, sessionId: 'default' }));
 }
 
 const title = project.title[lang] || project.title.tr;
