@@ -18,17 +18,20 @@ const year = new Date().getFullYear();
       <!-- Brand & About -->
       <div>
         <a href={translatePath('/')} class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-mint flex items-center justify-center text-white font-bold text-lg shadow-sm">
-            H
-          </div>
+          <img 
+            src="/images/logo.jpg" 
+            alt="Hibrit Gençlik Logo" 
+            class="h-10 w-auto rounded-lg shadow-sm"
+            onerror="this.src='/favicon.svg'; this.className='w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-mint p-1.5';"
+          />
           <span class="font-bold text-xl text-slate-deep">{association.name[lang]}</span>
         </a>
         <p class="text-slate-text text-sm leading-relaxed mb-6">
           {association.vision[lang]}
         </p>
         <div class="flex gap-4">
-          <!-- Social Icons Placeholder -->
-          <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-text hover:bg-primary hover:text-white transition-all">
+          <!-- Social Icons -->
+          <a href="https://www.instagram.com/hibritgenclik/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-text hover:bg-primary hover:text-white transition-all">
             <span class="sr-only">Instagram</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
           </a>
