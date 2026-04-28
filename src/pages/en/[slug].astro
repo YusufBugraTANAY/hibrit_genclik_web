@@ -18,7 +18,7 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
 // Helper to generate image/video array by reading the filesystem
-const getMediaFiles = (folder) => {
+const getMediaFiles = (folder: string) => {
   if (!folder) return [];
   try {
     const dirPath = path.join(process.cwd(), 'public', folder);
@@ -37,9 +37,9 @@ const getMediaFiles = (folder) => {
   }
 };
 
-let allMedia = [];
+let allMedia: any[] = [];
 if (project.sessions && project.sessions.length > 0) {
-  allMedia = project.sessions.flatMap(session => 
+  allMedia = project.sessions.flatMap((session: any) => 
     getMediaFiles(session.imageFolder).map(media => ({ ...media, sessionId: session.id }))
   );
 } else if (project.imageFolder) {
@@ -204,29 +204,32 @@ const location = project.location[lang] || project.location.tr;
     const galleryItems = document.querySelectorAll('.gallery-item');
     const resetBtn = document.getElementById('reset-gallery');
 
-    function filterGallery(sessionId) {
+    function filterGallery(sessionId: string) {
       galleryItems.forEach(item => {
-        if (sessionId === 'all' || item.dataset.session === sessionId) {
-          item.style.display = 'block';
-          item.style.opacity = '0';
-          setTimeout(() => item.style.opacity = '1', 50);
+        const htmlItem = item as HTMLElement;
+        if (sessionId === 'all' || htmlItem.dataset.session === sessionId) {
+          htmlItem.style.display = 'block';
+          htmlItem.style.opacity = '0';
+          setTimeout(() => htmlItem.style.opacity = '1', 50);
         } else {
-          item.style.display = 'none';
+          htmlItem.style.display = 'none';
         }
       });
       
       filterBtns.forEach(btn => {
-        if (btn.dataset.filter === sessionId) {
-          btn.classList.add('ring-2', 'ring-primary', 'bg-mint/10');
+        const htmlBtn = btn as HTMLElement;
+        if (htmlBtn.dataset.filter === sessionId) {
+          htmlBtn.classList.add('ring-2', 'ring-primary', 'bg-mint/10');
         } else {
-          btn.classList.remove('ring-2', 'ring-primary', 'bg-mint/10');
+          htmlBtn.classList.remove('ring-2', 'ring-primary', 'bg-mint/10');
         }
       });
     }
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterGallery(btn.dataset.filter);
+        const htmlBtn = btn as HTMLElement;
+        filterGallery(htmlBtn.dataset.filter || 'all');
         
         const gallerySection = document.getElementById('reset-gallery');
         if(gallerySection) {
