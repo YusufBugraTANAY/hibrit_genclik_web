@@ -1,7 +1,7 @@
 [
   {
     "id": "ka154-afetlere-karsi",
-    "slug": "ka154-afetlere-karsi",
+    "slug": "afetlere-karsi",
     "title": {
       "tr": "KA154 Gençlerin Öncülüğünde Afetlere Karşı Hep Birlikte",
       "en": "KA154 Youth Led Together Against Disasters"
@@ -63,7 +63,7 @@
   },
   {
     "id": "ka152-social-field",
-    "slug": "ka152-social-field",
+    "slug": "social-field",
     "title": {
       "tr": "KA152 Sosyal Alanda Birlikte Yapalım (Let's Do it in the Social Field)",
       "en": "KA152 Let's Do it in the Social Field"
@@ -85,5 +85,31 @@
     "participants": 40,
     "image": "/images/projects/ka152-social-field/1.jpg",
     "imageFolder": "/images/projects/ka152-social-field"
+  },
+  {
+    "id": "ka153-diyowo",
+    "slug": "diyowo",
+    "title": {
+      "tr": "Dijital Dönüşümün Gücü: #DiYoWo Projesi ile Gençlik Çalışmalarında Yeni Yaklaşımlar Geliştirilmiştir",
+      "en": "The Power of Digital Transformation: New Approaches in Youth Work Have Been Developed Through the #DiYoWo Project"
+    },
+    "summary": {
+      "tr": "Erasmus+ programı kapsamında hayata geçirilen #DiYoWo (Digital Youth Work) projesi, gençlik çalışanlarının dijital yeterliliklerinin artırılması ve dijital gençlik çalışmalarının yaygınlaştırılması amacıyla planlanmış ve uygulanmıştır.",
+      "en": "The #DiYoWo (Digital Youth Work) project, implemented within the scope of the Erasmus+ programme, has been designed and carried out with the aim of enhancing the digital competences of youth workers and promoting digital youth work practices."
+    },
+    "description": {
+      "tr": "Proje kapsamında Türkiye, Yunanistan, Sırbistan, Bulgaristan, Romanya ve Kuzey Makedonya’dan toplam 30 gençlik çalışanının katılımı sağlanmıştır. Katılımcılar, bilgi ve iletişim teknolojileri, dijital gençlik çalışmaları ve e-gönüllülük konularında kapsamlı bir eğitim sürecine dahil edilmiştir. Eğitim programı, yaygın eğitim metodolojisi ve deneyimsel öğrenme yaklaşımı temel alınarak tasarlanmış, katılımcıların aktif katılımı ve uygulama temelli öğrenmesi ön planda tutulmuştur.\n\nEğitim sürecinde, dijital araçların gençlik çalışmalarına entegrasyonu detaylı bir şekilde ele alınmıştır. Bu kapsamda çevrimiçi toplantı ve iş birliği platformları, dijital içerik üretim araçları, veri toplama ve analiz sistemleri, etkileşimli sunum araçları ve çevrimiçi öğrenme ortamları uygulamalı olarak incelenmiştir. Katılımcıların bu araçları etkin şekilde kullanabilme becerileri geliştirilmiş, aynı zamanda bu araçların farklı hedef gruplara nasıl uyarlanabileceği üzerine çalışmalar gerçekleştirilmiştir.\n\nProjenin önemli bileşenlerinden biri olarak, katılımcıların uluslararası gruplar halinde çalışarak dijital gençlik çalışmaları alanında yeni proje fikirleri geliştirmeleri sağlanmıştır. Bu süreçte, grup çalışmaları, atölye çalışmaları ve uygulamalı görevler aracılığıyla katılımcıların hem teknik hem de sosyal becerileri güçlendirilmiştir. Ayrıca, gerçekleştirilen faaliyetler sayesinde katılımcıların takım çalışması, iletişim ve problem çözme becerilerinin geliştirilmesine katkı sunulmuştur.\n\nProje sonunda elde edilen öğrenme çıktılarının kalıcı hale getirilmesi amacıyla kapsamlı bir e-kitapçık hazırlanmıştır. Bu e-kitapçıkta, proje süresince kullanılan dijital araçlar, yöntemler ve iyi uygulama örnekleri sistematik bir şekilde sunulmuştur. Hazırlanan bu çıktı ile yalnızca proje katılımcılarının değil, daha geniş bir hedef kitlenin de dijital gençlik çalışmaları alanındaki bilgi ve becerilerinin geliştirilmesine katkı sağlanması amaçlanmıştır.",
+      "en": "Within the scope of the project, a total of 30 youth workers from Türkiye, Greece, Serbia, Bulgaria, Romania, and North Macedonia have participated. The participants have been involved in a comprehensive training process focusing on information and communication technologies, digital youth work, and e-volunteering. The training programme has been designed based on non-formal education methodologies and an experiential learning approach, with a strong emphasis on active participation and practice-based learning.\n\nDuring the training process, the integration of digital tools into youth work has been addressed in detail. In this context, online meeting and collaboration platforms, digital content creation tools, data collection and analysis systems, interactive presentation tools, and online learning environments have been examined through practical applications. The participants’ ability to use these tools effectively has been improved, and activities have been carried out on how these tools can be adapted to different target groups.\n\nAs one of the key components of the project, participants have been engaged in developing new project ideas in the field of digital youth work through international group work. Through workshops, group activities, and practical tasks, both technical and soft skills of participants have been strengthened. Additionally, the implemented activities have contributed to the development of teamwork, communication, and problem-solving competences.\n\nIn order to ensure the sustainability of the learning outcomes achieved at the end of the project, a comprehensive e-booklet has been prepared. This e-booklet systematically presents the digital tools, methods, and good practice examples used throughout the project. With this output, it has been aimed to contribute not only to the development of the participants but also to a wider target group in the field of digital youth work."
+    },
+    "category": "Erasmus+ KA153",
+    "date": "2024-03-10",
+    "location": {
+      "tr": "Uluslararası",
+      "en": "International"
+    },
+    "participants": 30,
+    "image": "/images/projects/ka153-diyowo/1.jpg",
+    "imageFolder": "/images/projects/ka153-diyowo",
+    "pdf": "/docs/diyowo-e-booklet.pdf"
   }
 ]

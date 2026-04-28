@@ -91,7 +91,22 @@ const location = project.location[lang] || project.location.tr;
 
       {description && (
         <div class="mt-8 text-slate-600 max-w-4xl leading-relaxed prose prose-slate">
-          <p>{description}</p>
+          {description.split('\n\n').map(para => (
+            <p class="mb-4">{para}</p>
+          ))}
+        </div>
+      )}
+
+      {project.pdf && (
+        <div class="mt-10">
+          <a 
+            href={project.pdf} 
+            download
+            class="inline-flex items-center px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary-dark transition-all shadow-lg hover:shadow-primary/25 group"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            {t('project.downloadPdf')}
+          </a>
         </div>
       )}
     </div>

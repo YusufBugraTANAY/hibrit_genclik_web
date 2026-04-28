@@ -61,7 +61,7 @@ export default function NewsCarousel({ projects, lang = 'tr' }) {
                   {project.summary[lang] || project.summary.tr}
                 </p>
                 
-                <a href={isTr ? `/projeler/${project.slug}/` : `/en/projeler/${project.slug}/`} className="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-dark transition-colors group/link">
+                <a href={isTr ? `/${project.slug}/` : `/en/${project.slug}/`} className="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-dark transition-colors group/link">
                   {isTr ? 'Detaylı İncele' : 'View Details'}
                   <svg className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>

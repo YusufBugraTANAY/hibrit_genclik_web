@@ -21,7 +21,7 @@ const translatePath = useTranslatedPath(lang);
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {projects.map((project) => (
-        <a href={translatePath(`/projeler/${project.slug}/`)} class="glass-card overflow-hidden group cursor-pointer hover:-translate-y-2 transition-all duration-300 block bg-white">
+        <a href={translatePath(`/${project.slug}/`)} class="glass-card overflow-hidden group cursor-pointer hover:-translate-y-2 transition-all duration-300 block bg-white">
           <div class="aspect-video bg-slate-100 border-b border-slate-200 relative flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-mint via-slate-100 to-slate-100 z-0"></div>
             {project.image ? (
