@@ -161,7 +161,7 @@ const location = project.location[lang] || project.location.tr;
         
         <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {allMedia.map((media, index) => (
-            <div class="break-inside-avoid relative group rounded-xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200 gallery-item transition-all duration-500" data-session={media.sessionId}>
+            <div class="break-inside-avoid relative group rounded-xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200 gallery-item transition-all duration-500 cursor-pointer" data-session={media.sessionId} data-src={media.src} data-type={media.type}>
               {media.type === 'image' ? (
                 <>
                   <div class="absolute inset-0 flex items-center justify-center text-slate-400 -z-10">
@@ -174,7 +174,7 @@ const location = project.location[lang] || project.location.tr;
                     loading="lazy"
                     onerror="this.style.display='none'"
                   />
-                  <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
+                  <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
                     <span class="text-white font-medium bg-white/20 px-4 py-2 rounded-full border border-white/30 text-sm">
                       {t('project.clickToEnlarge')}
                     </span>
@@ -195,14 +195,32 @@ const location = project.location[lang] || project.location.tr;
     </section>
   )}
 
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-slate-900/95 backdrop-blur-sm hidden opacity-0 transition-all duration-300 flex items-center justify-center p-4">
+    <button id="close-lightbox" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-white/10 rounded-full hover:bg-white/20">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+    </button>
+    
+    <div class="max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
+      <img id="lightbox-img" src="" alt="Enlarged project photo" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" />
+      <video id="lightbox-video" src="" controls class="max-w-full max-h-[90vh] hidden rounded-lg shadow-2xl"></video>
+    </div>
+  </div>
+
 </Layout>
 
 <script>
-  // Client-side filtering logic for the Masonry Gallery
+  // Client-side filtering and Lightbox logic
   document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.session-filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
     const resetBtn = document.getElementById('reset-gallery');
+    
+    // Lightbox elements
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const lightboxVideo = document.getElementById('lightbox-video') as HTMLVideoElement;
+    const closeLightbox = document.getElementById('close-lightbox');
 
     function filterGallery(sessionId: string) {
       galleryItems.forEach(item => {
@@ -226,6 +244,60 @@ const location = project.location[lang] || project.location.tr;
       });
     }
 
+    // Lightbox Logic
+    function openLightbox(src: string, type: string) {
+      if (!lightbox || !lightboxImg || !lightboxVideo) return;
+      
+      if (type === 'image') {
+        lightboxImg.src = src;
+        lightboxImg.classList.remove('hidden');
+        lightboxVideo.classList.add('hidden');
+      } else if (type === 'video') {
+        lightboxVideo.src = src;
+        lightboxVideo.classList.remove('hidden');
+        lightboxImg.classList.add('hidden');
+      }
+
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      
+      setTimeout(() => {
+        lightbox.classList.add('opacity-100');
+        if (type === 'image') lightboxImg.classList.remove('scale-95');
+      }, 10);
+    }
+
+    function closeLightboxFn() {
+      if (!lightbox || !lightboxImg || !lightboxVideo) return;
+      
+      lightbox.classList.remove('opacity-100');
+      if (!lightboxImg.classList.contains('hidden')) lightboxImg.classList.add('scale-95');
+      
+      setTimeout(() => {
+        lightbox.classList.add('hidden');
+        lightboxImg.src = '';
+        lightboxVideo.src = '';
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const htmlItem = item as HTMLElement;
+        const src = htmlItem.dataset.src || '';
+        const type = htmlItem.dataset.type || 'image';
+        openLightbox(src, type);
+      });
+    });
+
+    if (closeLightbox) closeLightbox.addEventListener('click', closeLightboxFn);
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightboxFn();
+      });
+    }
+
+    // Filter Logic
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const htmlBtn = btn as HTMLElement;
