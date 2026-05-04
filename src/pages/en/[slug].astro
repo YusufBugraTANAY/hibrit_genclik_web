@@ -26,10 +26,10 @@ const getMediaFiles = (folder: string) => {
     
     const files = fs.readdirSync(dirPath);
     return files
-      .filter((file: string) => /\.(jpg|jpeg|png|mp4|mov)$/i.test(file))
+      .filter((file: string) => /\.(jpg|jpeg|png)$/i.test(file))
       .map((file: string) => ({
         src: `${folder}/${file}`,
-        type: /\.(mp4|mov)$/i.test(file) ? 'video' : 'image'
+        type: 'image'
       }));
   } catch (e) {
     console.error(e);
@@ -162,32 +162,22 @@ const location = project.location[lang] || project.location.tr;
         <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {allMedia.map((media, index) => (
             <div class="break-inside-avoid relative group rounded-xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200 gallery-item transition-all duration-500 cursor-pointer" data-session={media.sessionId} data-src={media.src} data-type={media.type}>
-              {media.type === 'image' ? (
-                <>
-                  <div class="absolute inset-0 flex items-center justify-center text-slate-400 -z-10">
-                    <svg class="animate-spin w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-                  </div>
-                  <img 
-                    src={media.src} 
-                    alt={`${title} - Media ${index + 1}`} 
-                    class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                    onerror="this.style.display='none'"
-                  />
-                  <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                    <span class="text-white font-medium bg-white/20 px-4 py-2 rounded-full border border-white/30 text-sm">
-                      {t('project.clickToEnlarge')}
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <video 
-                  src={media.src} 
-                  controls
-                  preload="metadata"
-                  class="w-full h-auto object-cover rounded-xl"
-                ></video>
-              )}
+              <div class="absolute inset-0 flex items-center justify-center text-slate-400 -z-10">
+                <svg class="animate-spin w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              </div>
+              <img 
+                src={media.src} 
+                alt={`${title} - Media ${index + 1}`} 
+                class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+              <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                <span class="text-white font-medium bg-white/20 px-4 py-2 rounded-full border border-white/30 text-sm">
+                  {t('project.clickToEnlarge')}
+                </span>
+              </div>
+
             </div>
           ))}
         </div>
@@ -203,7 +193,7 @@ const location = project.location[lang] || project.location.tr;
     
     <div class="max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
       <img id="lightbox-img" src="" alt="Enlarged project photo" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" />
-      <video id="lightbox-video" src="" controls class="max-w-full max-h-[90vh] hidden rounded-lg shadow-2xl"></video>
+
     </div>
   </div>
 
@@ -219,7 +209,7 @@ const location = project.location[lang] || project.location.tr;
     // Lightbox elements
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
-    const lightboxVideo = document.getElementById('lightbox-video') as HTMLVideoElement;
+
     const closeLightbox = document.getElementById('close-lightbox');
 
     function filterGallery(sessionId: string) {
@@ -246,17 +236,10 @@ const location = project.location[lang] || project.location.tr;
 
     // Lightbox Logic
     function openLightbox(src: string, type: string) {
-      if (!lightbox || !lightboxImg || !lightboxVideo) return;
+      if (!lightbox || !lightboxImg) return;
       
-      if (type === 'image') {
-        lightboxImg.src = src;
-        lightboxImg.classList.remove('hidden');
-        lightboxVideo.classList.add('hidden');
-      } else if (type === 'video') {
-        lightboxVideo.src = src;
-        lightboxVideo.classList.remove('hidden');
-        lightboxImg.classList.add('hidden');
-      }
+      lightboxImg.src = src;
+      lightboxImg.classList.remove('hidden');
 
       lightbox.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
@@ -268,7 +251,7 @@ const location = project.location[lang] || project.location.tr;
     }
 
     function closeLightboxFn() {
-      if (!lightbox || !lightboxImg || !lightboxVideo) return;
+      if (!lightbox || !lightboxImg) return;
       
       lightbox.classList.remove('opacity-100');
       if (!lightboxImg.classList.contains('hidden')) lightboxImg.classList.add('scale-95');
@@ -276,7 +259,6 @@ const location = project.location[lang] || project.location.tr;
       setTimeout(() => {
         lightbox.classList.add('hidden');
         lightboxImg.src = '';
-        lightboxVideo.src = '';
         document.body.style.overflow = '';
       }, 300);
     }

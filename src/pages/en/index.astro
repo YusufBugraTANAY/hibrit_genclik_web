@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import NewsCarousel from '../../components/NewsCarousel.jsx';
-import TeamCard from '../../components/TeamCard.astro';
+
 import association from '../../data/association.json';
 import projects from '../../data/projects.json';
 
@@ -38,23 +38,7 @@ const translatePath = useTranslatedPath(lang);
     </div>
   </section>
 
-  <!-- Team Section -->
-  <section class="py-24 bg-white relative border-t border-slate-200">
-    <div class="container mx-auto px-4">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-3xl md:text-5xl font-bold text-slate-deep mb-6">{t('team.title')} <span class="text-gradient">{t('team.title.gradient')}</span></h2>
-        <p class="text-slate-text leading-relaxed">
-          {t('team.subtitle')}
-        </p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {association.team.map((member) => (
-          <TeamCard member={member} />
-        ))}
-      </div>
-    </div>
-  </section>
+
 
   <!-- CTA Section -->
   <section class="py-24 relative overflow-hidden">
