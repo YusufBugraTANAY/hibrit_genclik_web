@@ -32,7 +32,7 @@ export const ui = {
     'project.gallery': 'Proje Galerisi',
     'project.showAll': 'Tüm Fotoğrafları Göster',
     'project.clickToEnlarge': 'Büyütmek İçin Tıkla',
-    'project.downloadPdf': 'Proje Dosyasını İndir (PDF)',
+    'project.downloadPdf': 'Proje Çıktısını İndir',
     
     'common.underConstruction': 'Bu sayfa yapım aşamasındadır. Yakında derneğimizin yerel etkinlikleri ve atölyeleri hakkında detaylı bilgilere buradan ulaşabileceksiniz.',
     'common.backToHome': 'Ana Sayfaya Dön',
@@ -105,7 +105,7 @@ export const ui = {
     'project.gallery': 'Project Gallery',
     'project.showAll': 'Show All',
     'project.clickToEnlarge': 'Click to Enlarge',
-    'project.downloadPdf': 'Download Project Document (PDF)',
+    'project.downloadPdf': 'Download Project Output',
     
     'common.underConstruction': 'This page is under construction. Soon you will find detailed information about our association\'s local events and workshops here.',
     'common.backToHome': 'Back to Home',
