@@ -1,0 +1,63 @@
+{
+  "name": {
+    "tr": "Hibrit Gençlik Kulübü Derneği",
+    "en": "Hybrid Youth Club Association"
+  },
+  "established": 2022,
+  "location": "Istanbul, Turkey",
+  "address": "Pendik, Istanbul",
+  "contact": {
+    "email": "hibritgenclik@gmail.com",
+    "phone": "+905059175361",
+    "instagram": "https://www.instagram.com/hibritgenclik/"
+  },
+  "identifiers": {
+    "oid": "E10310536",
+    "nationalId": "34-276-149"
+  },
+  "vision": {
+    "tr": "21. yüzyıl becerileri, yaygın eğitim (non-formal), teknoloji ve sporun entegrasyonu ile gençlerin kişisel ve profesyonel gelişimine katkı sağlamak.",
+    "en": "Contributing to the personal and professional development of youth through the integration of 21st-century skills, non-formal education, technology, and sports."
+  },
+  "team": [
+    {
+      "id": "serkan",
+      "name": "Doç. Dr. Serkan Hacıcaferoğlu",
+      "role": {
+        "tr": "Başkan",
+        "en": "President"
+      },
+      "description": {
+        "tr": "20 yıl akademik tecrübe, 17 yıl gençlik çalışması tecrübesi. Erasmus+ projeleri, finansal yönetim ve organizasyon uzmanı.",
+        "en": "20 years of academic experience, 17 years in youth work. Expert in Erasmus+ projects, financial management, and organization."
+      },
+      "image": "/images/team/serkan.jpg"
+    },
+    {
+      "id": "fahri",
+      "name": "Fahri Koçak",
+      "role": {
+        "tr": "Koordinatör",
+        "en": "Coordinator"
+      },
+      "description": {
+        "tr": "Erasmus+ ve Eurodesk uzmanı. 2010'dan beri Gençlik Lideri, İstanbul Gençlik ve Spor İl Müdürlüğü'nde tecrübeli.",
+        "en": "Erasmus+ and Eurodesk expert. Youth Leader since 2010, experienced in Istanbul Provincial Directorate of Youth and Sports."
+      },
+      "image": "/images/team/fahri.jpg"
+    },
+    {
+      "id": "safa",
+      "name": "Safa Yılmaz",
+      "role": {
+        "tr": "Gönüllü Yönetimi & IT",
+        "en": "Volunteer Management & IT"
+      },
+      "description": {
+        "tr": "Yüksek teknoloji yetkinliği, bilişim projeleri tecrübesi ve dijital platformlar konusunda uzman.",
+        "en": "High tech competence, experienced in IT projects, and an expert in digital platforms."
+      },
+      "image": "/images/team/safa.jpg"
+    }
+  ]
+}
