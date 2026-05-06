@@ -31,6 +31,7 @@ export const ui = {
     'project.sessions': 'Proje Oturumları',
     'project.gallery': 'Proje Galerisi',
     'project.showAll': 'Tüm Fotoğrafları Göster',
+    'project.viewVideo': 'Videoyu İzle',
     'project.clickToEnlarge': 'Büyütmek İçin Tıkla',
     'project.downloadPdf': 'Proje Çıktısını İndir',
     
@@ -104,6 +105,7 @@ export const ui = {
     'project.sessions': 'Project Sessions',
     'project.gallery': 'Project Gallery',
     'project.showAll': 'Show All',
+    'project.viewVideo': 'Watch Video',
     'project.clickToEnlarge': 'Click to Enlarge',
     'project.downloadPdf': 'Download Project Output',
     
