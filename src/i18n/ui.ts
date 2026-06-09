@@ -11,6 +11,7 @@ export const ui = {
     'nav.about': 'Kurumsal',
     'nav.projects': 'Projelerimiz',
     'nav.activities': 'Faaliyetler',
+    'nav.announcements': 'Duyurular',
     'nav.volunteer': 'Gönüllü Ol',
     'nav.contact': 'İletişim',
     
@@ -85,6 +86,7 @@ export const ui = {
     'nav.about': 'About Us',
     'nav.projects': 'Projects',
     'nav.activities': 'Activities',
+    'nav.announcements': 'Announcements',
     'nav.volunteer': 'Volunteer',
     'nav.contact': 'Contact',
     

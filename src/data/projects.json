@@ -22,7 +22,10 @@
     "sessions": [
       {
         "id": "sanliurfa",
-        "title": { "tr": "Şanlıurfa Oturumu", "en": "Sanliurfa Session" },
+        "title": {
+          "tr": "Şanlıurfa Oturumu",
+          "en": "Sanliurfa Session"
+        },
         "date": "2024-07-04",
         "endDate": "2024-07-07",
         "participants": 35,
@@ -35,7 +38,10 @@
       },
       {
         "id": "mugla",
-        "title": { "tr": "Muğla Oturumu", "en": "Mugla Session" },
+        "title": {
+          "tr": "Muğla Oturumu",
+          "en": "Mugla Session"
+        },
         "date": "2024-09-15",
         "endDate": "2024-09-18",
         "participants": 35,
@@ -48,7 +54,10 @@
       },
       {
         "id": "istanbul",
-        "title": { "tr": "İstanbul Zirvesi", "en": "Istanbul Summit" },
+        "title": {
+          "tr": "İstanbul Zirvesi",
+          "en": "Istanbul Summit"
+        },
         "date": "2024-11-30",
         "endDate": "2024-12-03",
         "participants": 50,
